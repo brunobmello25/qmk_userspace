@@ -9,6 +9,7 @@ enum sofle_layers {
     _FUNCTIONS,
 };
 
+// TODO: upper layers should trans to lower layers on the button that triggers that layer
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * QWERTY
@@ -26,11 +27,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_QWERTY] = LAYOUT(
-  KC_GRV,  KC_1,  KC_2,         KC_3,          KC_4,         KC_5,                     KC_6,         KC_7,         KC_8,         KC_9,         KC_0,    KC_NO,
-  KC_TAB,  KC_Q,  KC_W,         KC_E,          KC_R,         KC_T,                     KC_Y,         KC_U,         KC_I,         KC_O,         KC_P,    KC_NO,
-  KC_ESC,  KC_A,  LALT_T(KC_S), LCTL_T(KC_D),  LSFT_T(KC_F), KC_G,                     KC_H,         LSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), KC_SCLN, KC_QUOT,
-  KC_LCTL, KC_Z,  KC_X,         KC_C,          KC_V,         KC_B,  KC_NO,     KC_NO,  KC_N,         KC_M,         KC_COMM,      KC_DOT,       KC_SLSH, KC_LSFT,
-  KC_NO,   KC_NO, KC_NO,        KC_LGUI,       LT(1,KC_SPC),                           LT(2,KC_ENT), KC_BSPC,      KC_NO,        KC_NO,        KC_NO
+  KC_GRV,  KC_1, KC_2,         KC_3,         KC_4,         KC_5,                       KC_6, KC_7,         KC_8,         KC_9,         KC_0,    KC_NO,
+  KC_TAB,  KC_Q, KC_W,         KC_E,         KC_R,         KC_T,                       KC_Y, KC_U,         KC_I,         KC_O,         KC_P,    KC_NO,
+  KC_ESC,  KC_A, LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G,                       KC_H, LSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), KC_SCLN, KC_QUOT,
+  KC_LCTL, KC_Z, KC_X,         KC_C,         KC_V,         KC_B,   KC_NO,     KC_NO,   KC_N, KC_M,         KC_COMM,      KC_DOT,       KC_SLSH, KC_LSFT,
+                        KC_NO, KC_NO, KC_NO, KC_LGUI, LT(1,KC_SPC),                 LT(2,KC_ENT), KC_BSPC, KC_NO, KC_NO, KC_NO
 ),
 
 
@@ -82,3 +83,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
+
+#ifdef OLED_ENABLE
+
+bool oled_task_user() {
+    oled_set_cursor(0, 1);
+
+    switch(get_highest_layer(layer_state)) {
+        case _QWERTY:
+            oled_write("Layer: QWERTY", false);
+            break;
+        case _SYMBOLS:
+            oled_write("Layer: SYMBOLS", false);
+            break;
+        case _FUNCTIONS:
+            oled_write("Layer: FUNCTIONS", false);
+            break;
+        default:
+            oled_write("Layer: UNDEF", false);
+            break;
+    }
+
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.caps_lock ? PSTR("Caps: ON") : PSTR("Caps: OFF"), false);
+
+    return false;
+}
+
+#endif
