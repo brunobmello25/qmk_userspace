@@ -79,9 +79,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
+#ifdef COMBO_ENABLE
+
+const uint16_t PROGMEM esc_combo[] = {KC_J, KC_K, COMBO_END};
+
+combo_t key_combos[] = {
+    COMBO(esc_combo, KC_ESC),
+};
+
+#endif
 
 #ifdef OLED_ENABLE
 
