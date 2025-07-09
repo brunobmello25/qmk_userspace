@@ -71,11 +71,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_FUNCTIONS] = LAYOUT(
-  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                           KC_NO,  KC_NO  , KC_NO,  KC_NO ,  KC_NO ,KC_NO,
-  KC_NO, KC_INS,  KC_PSCR, KC_APP,  KC_NO,   KC_NO,                        KC_PGUP, KC_NO,   KC_UP, KC_NO, C(KC_BSPC), KC_BSPC,
-  KC_NO, KC_LALT, KC_LCTL, KC_LSFT, KC_NO,   KC_CAPS,                       KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL, KC_BSPC,
-  KC_NO, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), KC_NO,    KC_NO,       KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO,
-           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+  KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                          KC_NO,   KC_NO,   KC_NO,   KC_NO ,  KC_NO ,KC_NO,
+  KC_NO, KC_INS,  KC_NO,   KC_NO,   KC_PSCR, KC_NO,                          KC_NO,   KC_PGUP, KC_PGDN, KC_NO,   KC_NO, KC_NO,
+  KC_NO, KC_NO,   KC_LALT, KC_LCTL, KC_LSFT, KC_CAPS,                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO, KC_NO,
+  KC_NO, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), KC_NO,    KC_NO,       KC_NO,   KC_NO,   KC_BSPC, KC_DEL,  KC_NO,   KC_NO, KC_NO,
+           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 )
 };
 
