@@ -9,7 +9,6 @@ enum sofle_layers {
     _FUNCTIONS,
 };
 
-// TODO: upper layers should trans to lower layers on the button that triggers that layer
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * QWERTY
@@ -55,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_F12,
   KC_NO, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
   KC_NO,  KC_EQL, KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, KC_NO,       KC_NO, KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, KC_NO,
-                       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+                       KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,       KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO
 ),
 /* FUNCTIONS
  * ,----------------------------------------.                    ,-----------------------------------------.
@@ -76,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO, KC_INS,  KC_NO,   KC_NO,   KC_PSCR, KC_NO,                          KC_NO,   KC_PGUP, KC_PGDN, KC_NO,   KC_NO, KC_NO,
   KC_NO, KC_NO,   KC_LALT, KC_LCTL, KC_LSFT, KC_CAPS,                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO, KC_NO,
   KC_NO, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), KC_NO,    KC_NO,       KC_NO,   KC_NO,   KC_BSPC, KC_DEL,  KC_NO,   KC_NO, KC_NO,
-           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+           KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,                             KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO
 )
 };
 
