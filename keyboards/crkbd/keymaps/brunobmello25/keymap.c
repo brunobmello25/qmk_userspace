@@ -92,6 +92,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_ENABLE
 #define DRAWING_SIZE 636
 
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_270;
+    }
+    return rotation;
+}
+
 void render_cat(void) {
     static const char PROGMEM catimg[DRAWING_SIZE] = {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -125,28 +132,32 @@ void render_cat(void) {
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_set_cursor(0, 1);
+        oled_write_ln("LAYER", false);
         switch(get_highest_layer(layer_state)) {
             case _QWERTY:
-                oled_write_ln("Layer: QWERTY", false);
+                oled_write_ln("QWERT", false);
                 break;
             case _SYMBOLS:
-                oled_write_ln("Layer: SYMBOLS", false);
+                oled_write_ln("SYMBL", false);
                 break;
             case _FUNCTIONS:
-                oled_write_ln("Layer: FUNCTIONS", false);
+                oled_write_ln("FUNCS", false);
                 break;
             case _MEDIA:
-                oled_write_ln("Layer: MEDIA", false);
+                oled_write_ln("MEDIA", false);
                 break;
             case _GAMING:
-                oled_write_ln("Layer: GAMING", false);
+                oled_write_ln("GAMES", false);
                 break;
             default:
-                oled_write_ln("Layer: UNKNOWN", false);
+                oled_write_ln("UNKWN", false);
         }
 
+        oled_write_ln("", false);
+        oled_write_ln("CAPS:", false);
+
         led_t led_state = host_keyboard_led_state();
-        oled_write_P(led_state.caps_lock ? PSTR("Caps Lock On") : PSTR("Caps Lock Off"), false);
+        oled_write_P(led_state.caps_lock ? PSTR("ON") : PSTR("OFF"), false);
     } else {
         render_cat();
     }
