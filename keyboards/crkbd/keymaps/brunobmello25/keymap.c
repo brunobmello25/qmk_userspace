@@ -89,6 +89,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+#ifdef COMBO_ENABLE
+
+const uint16_t PROGMEM capslock_combo[] = {KC_LSFT, KC_RSFT, COMBO_END};
+
+combo_t key_combos[] = {
+    COMBO(capslock_combo, KC_CAPS)
+};
+
+#endif
+
 #ifdef OLED_ENABLE
 #define DRAWING_SIZE 636
 
@@ -157,7 +167,7 @@ bool oled_task_user(void) {
         oled_write_ln("CAPS:", false);
 
         led_t led_state = host_keyboard_led_state();
-        oled_write_P(led_state.caps_lock ? PSTR("ON") : PSTR("OFF"), false);
+        oled_write_P(led_state.caps_lock ? PSTR("ON ") : PSTR("OFF"), false);
     } else {
         render_cat();
     }
