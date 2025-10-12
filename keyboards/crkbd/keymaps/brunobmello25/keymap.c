@@ -23,8 +23,7 @@ enum layers {
     _SYMBOLS,
     _FUNCTIONS,
     _MEDIA,
-    _PICK_GAME,
-    _SATIS,
+    _GAME,
     _GNUM,
 };
 
@@ -78,19 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-    [_PICK_GAME] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        KC_NO,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  DF(0),
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_NO,   KC_NO,    KC_W,   KC_NO,    KC_R,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                        KC_NO,   KC_NO,   KC_NO,DF(_SATIS),KC_NO,KC_NO,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           KC_SPC,   KC_NO,   KC_NO,        KC_NO,   KC_NO,   KC_NO
-                                      //`--------------------------'  `--------------------------'
-  ),
-
-    [_SATIS] = LAYOUT_split_3x6_3(
+    [_GAME] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  DF(_QWERTY),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -117,13 +104,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef COMBO_ENABLE
 
+enum combo_events {
+    CAPSLOCK_COMBO,
+    GAME_COMBO,
+};
+
 const uint16_t PROGMEM capslock_combo[] = {KC_LSFT, KC_RSFT, COMBO_END};
-const uint16_t PROGMEM pick_game_combo[] = {KC_Q, KC_W, KC_E, COMBO_END};
+const uint16_t PROGMEM game_combo[] = {KC_W, KC_A, KC_D, COMBO_END};
 
 combo_t key_combos[] = {
-    COMBO(capslock_combo, KC_CAPS),
-    COMBO(pick_game_combo, MO(_PICK_GAME))
+    [CAPSLOCK_COMBO] = COMBO_ACTION(capslock_combo),
+    [GAME_COMBO] = COMBO_ACTION(game_combo),
 };
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch(combo_index) {
+        case CAPSLOCK_COMBO:
+            if (pressed) {
+                tap_code(KC_CAPS);
+            }
+            break;
+        case GAME_COMBO:
+            if (pressed) {
+                if (get_highest_layer(default_layer_state) != _GAME) {
+                    set_single_default_layer(_GAME);
+                } else {
+                    set_single_default_layer(_QWERTY);
+                }
+            }
+            break;
+    }
+}
 
 #endif
 
@@ -188,11 +199,8 @@ bool oled_task_user(void) {
             case _MEDIA:
                 oled_write_ln("MEDIA", false);
                 break;
-            case _PICK_GAME:
-                oled_write_ln("GPICK", false);
-                break;
-            case _SATIS:
-                oled_write_ln("SATFY", false);
+            case _GAME:
+                oled_write_ln("GAMES", false);
                 break;
             case _GNUM:
                 oled_write_ln("GNUM ", false);
