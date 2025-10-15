@@ -25,6 +25,7 @@ enum layers {
     _MEDIA,
     _GAME,
     _GNUM,
+    _GSYM,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -85,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,LCTL_T(KC_Z),KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_LCTL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_SPC, KC_LGUI,  MO(_GNUM),        KC_ENT,   KC_BSPC,   KC_RSFT
+                                          KC_SPC, MO(_GSYM),  MO(_GNUM),        KC_ENT,   KC_BSPC,   KC_RSFT
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -97,9 +98,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT, LALT_T(KC_SLSH), KC_LCTL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_SPC, KC_LGUI,  KC_LCTL,     MO(_FUNCTIONS),   MO(_SYMBOLS), KC_RSFT
+                                          KC_SPC, MO(_GSYM),  MO(_GNUM),         MO(_FUNCTIONS),   MO(_SYMBOLS), KC_RSFT
                                       //`--------------------------'  `--------------------------'
   ),
+
+    [_GSYM] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       KC_TAB,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  DF(_QWERTY),
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+       KC_LSFT,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_QUOT,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LCTL,    KC_F11,  KC_F12,  KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT, LALT_T(KC_SLSH), KC_LCTL,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_SPC, MO(_GSYM),  MO(_GNUM),     MO(_FUNCTIONS),   MO(_SYMBOLS), KC_RSFT
+                                      //`--------------------------'  `--------------------------'
+  )
 };
 
 #ifdef COMBO_ENABLE
@@ -204,6 +217,9 @@ bool oled_task_user(void) {
                 break;
             case _GNUM:
                 oled_write_ln("GNUM ", false);
+                break;
+            case _GSYM:
+                oled_write_ln("GSYMB", false);
                 break;
             default:
                 oled_write_ln("UNKWN", false);
