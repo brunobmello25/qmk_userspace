@@ -106,9 +106,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_CAPS,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  DF(_QWERTY),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_LSFT,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_QUOT,
+       KC_LSFT,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,KC_F10, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_F11,  KC_F12,  KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT, LALT_T(KC_SLSH), KC_LCTL,
+      KC_LCTL,    KC_LALT, KC_F12,  KC_C,    KC_F11,  KC_F12,                       KC_N,    KC_M,    KC_COMM, KC_DOT, LALT_T(KC_SLSH), KC_LCTL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_SPC, MO(_GSYM),  MO(_GNUM),     MO(_FUNCTIONS),   MO(_SYMBOLS), KC_RSFT
                                       //`--------------------------'  `--------------------------'
@@ -123,7 +123,7 @@ enum combo_events {
 };
 
 const uint16_t PROGMEM capslock_combo[] = {KC_LSFT, KC_RSFT, COMBO_END};
-const uint16_t PROGMEM game_combo[] = {KC_W, KC_A, KC_D, COMBO_END};
+const uint16_t PROGMEM game_combo[] = {KC_Q, KC_W, KC_E, COMBO_END};
 
 combo_t key_combos[] = {
     [CAPSLOCK_COMBO] = COMBO_ACTION(capslock_combo),
